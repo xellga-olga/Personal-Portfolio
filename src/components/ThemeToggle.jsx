@@ -15,7 +15,7 @@ export const ThemeToggle = () => {
       localStorage.setItem("theme", "light");
       setIsDarkMode(false);
     }
-  })
+  },[])
 
   const toggleTheme = () => {
     if (isDarkMode) {
@@ -34,10 +34,10 @@ export const ThemeToggle = () => {
      onClick={toggleTheme}
      className={cn(
        "fixed max-sm:hidden rounded-full top-5 right-5 transition-colors duration-300",
-       "focus:outline-hidden",
+       "focus:outline-hidden cursor-pointer",
      )}>
      {isDarkMode ?
-       <Sun className='h-6 w-6 text-yellow-300' />
+       <Sun className='h-6 w-6 text-yellow-300 ' />
        :
        <Moon className='h-6 w-6 text-blue-600 ' />
      }

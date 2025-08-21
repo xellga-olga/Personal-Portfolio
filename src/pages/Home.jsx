@@ -6,18 +6,10 @@ import Footer from "@/components/Footer.jsx";
 export const Home = () => {
   return (
     <div className='min-h-screen bg-background text-foreground overflow-x-hidden '>
-      Home
-      {/*Theme Toggle*/}
-      <ThemeToggle />
-      {/*Background Effects*/}
       <Background />
-
-      {/*Navbar*/}
       <Navbar />
       {/*Main Content*/}
-
-      {/*Footer*/}
-      <Footer />
+      {/*<Footer />*/}
     </div>
   )
 }
