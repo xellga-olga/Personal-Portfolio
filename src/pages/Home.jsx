@@ -2,6 +2,7 @@ import {ThemeToggle} from "@/components/ThemeToggle.jsx";
 import Navbar from "@/components/Navbar.jsx";
 import Background from "@/components/Background.jsx";
 import Footer from "@/components/Footer.jsx";
+import HeroSection from "@/components/HeroSection.jsx";
 
 export const Home = () => {
   return (
@@ -9,7 +10,10 @@ export const Home = () => {
       <Background />
       <Navbar />
       {/*Main Content*/}
-      {/*<Footer />*/}
+      <main>
+        <HeroSection />
+      </main>
+      <Footer />
     </div>
   )
 }
