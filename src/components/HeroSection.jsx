@@ -1,14 +1,23 @@
 import React from 'react';
-import {ArrowDown, ArrowUp} from "lucide-react";
+import {ArrowDown} from "lucide-react";
+import HeroImage from '../img/heroImage.jpg'
 
 const HeroSection = () => {
   return (
     <section
       id='hero'
-      className='flex flex-col justify-center items-center relative min-h-screen px-5'
+      className='flex flex-col justify-center items-center relative min-h-screen px-5 gap-6'
     >
+      <div className="p-[4px] rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-pink-500 hover:to-yellow-400 transition-all duration-500">
+        <img
+          className="rounded-full h-[250px] w-[250px] object-cover"
+          src={HeroImage}
+          alt="hero image"
+        />
+      </div>
       <div className='container max-w-4xl mx-auto text-center z-10'>
         <div className='space-y-6'>
+
           <h1 className='text-4xl md:text-6xl font-bold trackikng-tight'>
             <span className='opacity-0 animate-fade-in'>Hi, I'm</span>
             <span className='text-primary opacity-10 animate-fade-in-delay-1'> Olha</span>

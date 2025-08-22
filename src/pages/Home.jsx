@@ -3,6 +3,7 @@ import Background from "@/components/Background.jsx";
 import Footer from "@/components/Footer.jsx";
 import HeroSection from "@/components/HeroSection.jsx";
 import AboutMeSection from "@/components/AboutMeSection.jsx";
+import SkillsSection from "@/components/SkillsSection.jsx";
 
 export const Home = () => {
   return (
@@ -12,6 +13,7 @@ export const Home = () => {
       <main>
         <HeroSection />
         <AboutMeSection />
+        <SkillsSection />
       </main>
       <Footer />
     </div>
