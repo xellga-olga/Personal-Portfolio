@@ -1,5 +1,6 @@
 import React from 'react';
 import {Laptop, Layers, Sparkles} from "lucide-react";
+import { motion } from "framer-motion";
 
 const AboutMeSection = () => {
   return (
@@ -7,7 +8,12 @@ const AboutMeSection = () => {
       id="about"
       className='py-24 px-4 relative'
     >
-      <div className='container mx-auto max-w-5xl'>
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className='container mx-auto max-w-5xl'>
         <h2 className='text-3xl md:text-4xl font-bold mb-12 text-center'>
           About <span className='text-primary'>Me</span>
         </h2>
@@ -96,7 +102,7 @@ const AboutMeSection = () => {
           </div>
 
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
