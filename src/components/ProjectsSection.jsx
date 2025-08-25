@@ -1,5 +1,5 @@
 import React from 'react';
-import {ExternalLink, Github} from "lucide-react";
+import {ArrowRight, ExternalLink, Github} from "lucide-react";
 
 const projects = [
   {
@@ -48,6 +48,7 @@ const ProjectsSection = () => {
           I focused on making them simple, user-friendly, and practical.
         </p>
 
+        {/* project cards with tags and links */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {projects.map((item, index) => (
             <div key={index} className='group bg-card rounded-lg overflow-hidden shadow-sm card-hover'>
@@ -91,6 +92,17 @@ const ProjectsSection = () => {
 
             </div>
           ))}
+        </div>
+
+        {/*  button  */}
+        <div className='mt-12 text-center'>
+          <a
+            href='https://github.com/xellga-olga/Personal-Portfolio'
+            target='_blank'
+            className='cosmic-button w-fit flex items-center gap-2 mx-auto'>
+            Check My GitHub
+            <ArrowRight size={16}/>
+          </a>
         </div>
 
       </div>
