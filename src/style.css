@@ -84,6 +84,9 @@
     --primary-foreground: 210 40% 98%;
 
     --border: 214 32% 91%;
+
+    --weather-bg: rgba(40, 117, 255, 0.61);
+    --weather-color: #ededed;
   }
 
   .dark {
@@ -96,6 +99,9 @@
     --primary-foreground: 213 31% 91%;
 
     --border: 217 33% 20%;
+
+    --weather-bg: rgba(71, 71, 71, 0.7);
+    --weather-color: #bfbfbf;
   }
 
   * {

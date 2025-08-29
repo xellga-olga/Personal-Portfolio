@@ -8,9 +8,9 @@ const HeroSection = () => {
       id='hero'
       className='flex flex-col justify-center items-center relative min-h-screen px-5 gap-6'
     >
-      <div className="p-[4px] rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-pink-500 hover:to-yellow-400 transition-all duration-500">
+      <div className="mt-16 md:mt-0 p-[4px] rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-pink-500 hover:to-yellow-400 transition-all duration-500">
         <img
-          className="rounded-full h-[250px] w-[250px] object-cover"
+          className="rounded-full h-[180px] w-[180px] md:h-[250px] md:w-[250px] object-cover"
           src={HeroImage}
           alt="hero image"
         />

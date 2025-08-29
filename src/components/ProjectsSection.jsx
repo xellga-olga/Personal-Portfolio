@@ -1,5 +1,6 @@
 import React from 'react';
 import {ArrowRight, ExternalLink, Github} from "lucide-react";
+import {motion} from "framer-motion";
 
 const projects = [
   {
@@ -49,7 +50,12 @@ const ProjectsSection = () => {
         </p>
 
         {/* project cards with tags and links */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {projects.map((item, index) => (
             <div key={index} className='group bg-card rounded-lg overflow-hidden shadow-sm card-hover'>
 
@@ -65,6 +71,7 @@ const ProjectsSection = () => {
                 <div className='flex flex-wrap gap-2 mb-2'>
                   {item.tags.map((tag) => (
                     <span
+                      key={tag}
                       className='text-xs font-medium border py-1 px-2 rounded-full bg-primary/20 text-secondary-foreground'>
                       {tag}
                     </span>
@@ -92,7 +99,7 @@ const ProjectsSection = () => {
 
             </div>
           ))}
-        </div>
+        </motion.div>
 
         {/*  button  */}
         <div className='mt-12 text-center'>

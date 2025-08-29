@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {FacebookIcon, InstagramIcon, LinkedinIcon, Mail, MapPin, Phone, Send} from "lucide-react";
 import {cn} from "@/lib/utils.js";
 import {useToast} from "@/hooks/use-toast.jsx";
+import { motion } from "framer-motion";
+
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,14 +32,19 @@ const ContactSection = () => {
     >
       <div className='container mx-auto max-w-5xl'>
         <h2 className='text-3xl md:text-4xl font-bold mb-4 text-center'>
-          Get In <span className='text-pprimary'> Touch</span>
+          Get In <span className='text-primary'> Touch</span>
         </h2>
 
         <p className='text-center text-foreground/80 mb-12 mx-auto max-w-2xl'>
           Open to learning, teamwork, and new opportunities
         </p>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className='grid grid-cols-1 md:grid-cols-2 gap-12'>
           {/*contact information*/}
           <div className='space-y-8'>
             <h3 className='mb-6 font-semibold text-2xl'>
@@ -167,7 +174,7 @@ const ContactSection = () => {
             </form>
           </div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );

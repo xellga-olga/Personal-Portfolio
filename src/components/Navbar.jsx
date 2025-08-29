@@ -1,7 +1,8 @@
-import { ThemeToggle } from "@/components/ThemeToggle.jsx";
+import {ThemeToggle} from "@/components/ThemeToggle.jsx";
 import React, {useEffect, useState} from 'react';
 import {cn} from "@/lib/utils.js";
 import {Menu, X} from "lucide-react";
+import { CloudSun } from 'lucide-react';
 
 const navItems = [
   {
@@ -25,6 +26,7 @@ const navItems = [
 const Navbar = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [weather, setWeather] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +37,39 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     }
-  },[])
+  }, [])
+
+
+  useEffect(() => {
+    const fetchWeather = () => {
+      if (!navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
+          fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              if (data && data.name && data.main && typeof data.main.temp === "number") {
+                setWeather({
+                  temp: Math.round(data.main.temp),
+                });
+              }
+            })
+            .catch(() => {
+            });
+        },
+        () => {
+        }
+      );
+    };
+    fetchWeather();
+  }, [])
+
+
   return (
     <nav
       className={cn(
@@ -45,16 +79,27 @@ const Navbar = () => {
     >
 
       <div className='container flex items-center justify-between'>
-        <a
-          href='#hero'
-          className='text-xl font-bold text-primary flex items-center'>
+        <div className='flex items-center justify-between'>
+          {weather && (
+            <span
+              className="flex items-center  min-w-[40px] font-semibold text-center rounded-lg bg-[var(--weather-bg)] text-[var(--weather-color)] text-[16px] px-2 py-1 mr-4 shadow-lg ">
+                  <CloudSun />
+              {weather.temp}°C
+                </span>
+          )}
+          <a
+            href='#hero'
+            className='text-xl font-bold text-primary flex items-center'>
           <span className='relative z-10'>
             <span className='text-glow text-foreground'>
               OlyaPla{" "}
             </span>
-             Portfolio
+            Portfolio
+
           </span>
-        </a>
+          </a>
+        </div>
+
 
         {/*Desktop Nav*/}
         <div className='hidden md:flex space-x-10'>
