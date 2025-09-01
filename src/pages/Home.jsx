@@ -6,6 +6,7 @@ import AboutMeSection from "@/components/AboutMeSection.jsx";
 import SkillsSection from "@/components/SkillsSection.jsx";
 import ProjectsSection from "@/components/ProjectsSection.jsx";
 import ContactSection from "@/components/ContactSection.jsx";
+import MiniAppsSection from "@/components/MiniAppsSection.jsx";
 
 export const Home = () => {
   return (
@@ -17,6 +18,7 @@ export const Home = () => {
         <AboutMeSection />
         <SkillsSection />
         <ProjectsSection />
+        <MiniAppsSection />
         <ContactSection />
       </main>
       <Footer />
