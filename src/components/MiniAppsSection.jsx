@@ -8,19 +8,19 @@ const apps = [
     image: "./quiz.jpg",
     link: "/mini-apps/quiz",
   },
-
-   { id: 2, title: "Calculator",
+   {
+     id: 2, title: "Calculator",
      image: "./calculator.jpg",
      link: "/mini-apps/calculator"
    },
   {
-    id: 1,
+    id: 3,
     title: "Quiz Game",
     image: "./quiz.jpg",
     link: "/mini-apps/quiz",
   },
-
-  { id: 2, title: "Calculator",
+  {
+    id: 4, title: "Calculator",
     image: "./calculator.jpg",
     link: "/mini-apps/calculator"
   },
@@ -29,7 +29,7 @@ const apps = [
 
 export default function MiniAppsSection() {
   return (
-    <section id="mini-apps" className="py-24 px-4 relative">
+    <section id="mini-apps" className="py-24 px-4 relative ">
 
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-center text-3xl font-bold mb-4 md:text-4xl">
