@@ -16,8 +16,8 @@ const apps = [
   {
     id: 3,
     title: "Quiz Game",
-    image: "./quiz.jpg",
-    link: "/mini-apps/quiz",
+    image: "./memory-card.jpg",
+    link: "/mini-apps/memory-card",
   },
   {
     id: 4, title: "Calculator",

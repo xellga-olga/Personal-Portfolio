@@ -4,6 +4,7 @@ import {NotFound} from "@/pages/NotFound.jsx";
 import {Toaster} from "@/components/ui/toaster.jsx";
 import Quiz from "@/components/mini-apps/Quiz.jsx";
 import Calculator from "@/components/mini-apps/Calculator.jsx";
+import MemoryCard from "@/components/mini-apps/MemoryCard.jsx";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/mini-apps/quiz" element={<Quiz />} />
           <Route path="/mini-apps/calculator" element={<Calculator />} />
+          <Route path="/mini-apps/memory-card" element={<MemoryCard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
