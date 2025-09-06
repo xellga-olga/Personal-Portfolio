@@ -1,8 +1,7 @@
 import {ThemeToggle} from "@/components/ThemeToggle.jsx";
 import React, {useEffect, useState} from 'react';
 import {cn} from "@/lib/utils.js";
-import {Menu, X} from "lucide-react";
-import { CloudSun } from 'lucide-react';
+import {CloudSun, Menu, X} from "lucide-react";
 
 const navItems = [
   {
@@ -86,7 +85,7 @@ const Navbar = () => {
           {weather && (
             <span
               className="flex items-center  min-w-[40px] font-semibold text-center rounded-lg bg-[var(--weather-bg)] text-[var(--weather-color)] text-[16px] px-2 py-1 mr-4 shadow-lg ">
-                  <CloudSun />
+                  <CloudSun/>
               {weather.temp}°C
                 </span>
           )}
@@ -105,7 +104,7 @@ const Navbar = () => {
 
 
         {/*Desktop Nav*/}
-        <div className='hidden md:flex space-x-10'>
+        <div className='hidden md:flex space-x-12 items-center '>
           {navItems.map((item, key) => (
             <a
               key={key}
@@ -116,7 +115,8 @@ const Navbar = () => {
             </a>
           ))}
 
-          <ThemeToggle/>
+          <ThemeToggle className=''/>
+
         </div>
 
         {/*Mobile Nav*/}

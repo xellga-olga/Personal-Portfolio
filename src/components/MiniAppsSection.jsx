@@ -18,13 +18,7 @@ const apps = [
     title: "Quiz Game",
     image: "./memory-card.jpg",
     link: "/mini-apps/memory-card",
-  },
-  {
-    id: 4, title: "Calculator",
-    image: "./calculator.jpg",
-    link: "/mini-apps/calculator"
-  },
-
+  }
 ];
 
 export default function MiniAppsSection() {
@@ -41,7 +35,7 @@ export default function MiniAppsSection() {
           Each one is crafted to be engaging, practical, and easy to use.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-8">
           {apps.map((app, i) => (
             <motion.div
               key={app.id}
@@ -49,12 +43,12 @@ export default function MiniAppsSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="bg-card p-5 rounded-lg shadow-md flex flex-col items-center"
+              className="bg-card p-5 rounded-lg shadow-md flex flex-col items-center "
             >
               <img
                 src={app.image}
                 alt={app.title}
-                className="w-46 h-24 rounded-lg object-cover mb-4"
+                className="w-46 h-24 rounded-lg object-cover mb-4 "
               />
               <h3 className="text-lg font-semibold text-center">{app.title}</h3>
 
