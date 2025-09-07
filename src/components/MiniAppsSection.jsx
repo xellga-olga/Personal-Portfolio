@@ -18,6 +18,12 @@ const apps = [
     title: "Quiz Game",
     image: "./memory-card.jpg",
     link: "/mini-apps/memory-card",
+  },
+  {
+    id: 4,
+    title: "Quotable",
+    image: "/quotable.jpg",
+    link: "/mini-apps/quotable",
   }
 ];
 
@@ -35,7 +41,7 @@ export default function MiniAppsSection() {
           Each one is crafted to be engaging, practical, and easy to use.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {apps.map((app, i) => (
             <motion.div
               key={app.id}

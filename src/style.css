@@ -104,6 +104,12 @@
     --weather-color: #bfbfbf;
   }
 
+  @layer utilities {
+    .font-fancy {
+      font-family: 'Playfair Display', serif;
+    }
+  }
+
   * {
     @apply border-border;
   }
