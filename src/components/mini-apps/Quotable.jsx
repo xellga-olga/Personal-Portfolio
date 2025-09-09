@@ -1,14 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {ArrowRight, Heart, LogOut, } from 'lucide-react';
+import {ArrowRight, Heart, LogOut,} from 'lucide-react';
 
 import {Link} from "react-router-dom";
 import Modal from "@/components/mini-apps/Modal.jsx";
+
+import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 const Quotable = () => {
   const [data, setData] = useState([]);
 
   const [openModal, setOpenModal] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+  const [favorites, setFavorites] = useState([]);
 
 
   useEffect(() => {
@@ -18,19 +25,21 @@ const Quotable = () => {
   }, []);
   console.log(data, 'data')
 
+
   function refreshPage() {
     window.location.reload();
   }
 
   const handleCopyToLocalStorage = () => {
-    const dataString = JSON.stringify(data);
-    localStorage.setItem('copy', JSON.stringify(dataString));
+    localStorage.setItem('copy', JSON.stringify(data))
     console.log('Quotable copied to local storage');
   }
 
   const handleFavoriteToLocalStorage = () => {
-    const dataString = JSON.stringify(data);
-    localStorage.setItem('favorites', JSON.stringify(dataString));
+    const updatedFavorites = [...favorites, data];//добавляем текущую цитату
+    setFavorites(updatedFavorites);//обновляем состояние
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+    setOpenModal(true);
     console.log('Quotable save in favorite to local storage');
   }
 
@@ -63,21 +72,48 @@ const Quotable = () => {
                 <Heart className="w-5 h-5 cursor-pointer"/>
               </button>
 
-              <Modal open={openModal} onClose={() => {
-                setOpenModal(false)
-              }}>
+
+              <Modal open={openModal} onClose={() => {setOpenModal(false)}}>
+                {favorites.length === 0 ? (
+                  <p>Пусто</p>
+                ) : (
+                  <ul className="">
+                    {favorites.map((item, index) => (
+                      <li key={index} className='mb-4 p-6'>
+                        <p className='font-fancy'>{item.content}</p>
+                        <p className='italic'>{item.author}</p>
+                        <button className='cursor-pointer mt-4 py-2.5 px-6 text-sm bg-red-50 text-red-500 rounded-full font-semibold text-center shadow-xs transition-all duration-500 hover:bg-red-100'>
+                          Delete
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </Modal>
+
             </div>
           </div>
 
+          <SkeletonTheme baseColor='#dbd0d0'>
+            {
+              loading ? (
+                <>
+                  <Skeleton height={28} width='80%'/>
+                  <Skeleton height={20} width='50%' style={{marginTop: 20}}/>
+                </>
+              ) : (
+                <>
+                  <p className="text-xl text-foreground/80 mt-6 font-fancy p-4">
+                    {data.content || <Skeleton count={2}/>}
+                  </p>
 
-          <p className="text-xl text-foreground/80 mt-6 font-fancy p-4">
-            {data.content}
-          </p>
-
-          <p className="text-lg text-foreground/80 mt-8  font-fancy italic ">
-            - {data.author}
-          </p>
+                  <p className="text-lg text-foreground/80 mt-8  font-fancy italic ">
+                    - {data.author || <Skeleton count={1}/>}
+                  </p>
+                </>
+              )
+            }
+          </SkeletonTheme>
 
           <div className='grid items-center justify-center gap-4 mt-8 sm:grid-cols-1 lg:grid-cols-3 p-4'>
             <button

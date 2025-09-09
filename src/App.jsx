@@ -11,17 +11,17 @@ import Quotable from "@/components/mini-apps/Quotable.jsx";
 function App() {
   return (
     <>
-      <Toaster />
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/mini-apps/quiz" element={<Quiz />} />
-          <Route path="/mini-apps/calculator" element={<Calculator />} />
-          <Route path="/mini-apps/memory-card" element={<MemoryCard />} />
-          <Route path="/mini-apps/quotable" element={<Quotable />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+        <Toaster />
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/mini-apps/quiz" element={<Quiz />} />
+            <Route path="/mini-apps/calculator" element={<Calculator />} />
+            <Route path="/mini-apps/memory-card" element={<MemoryCard />} />
+            <Route path="/mini-apps/quotable" element={<Quotable />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
     </>
   )
 }
