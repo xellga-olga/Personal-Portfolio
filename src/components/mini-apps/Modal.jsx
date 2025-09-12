@@ -9,7 +9,7 @@ export default function Modal({ open, onClose , children }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-card rounded-lg shadow-xl p-6 transform transition-all duration-200 scale-100 opacity-100 max-w-lg w-full"
+        className="relative bg-card border border-gray-300 rounded-lg shadow-2xl shadow-blue-500/50 p-6 transform transition-all duration-200 scale-100 opacity-100 max-w-xl w-full"
       >
         <button
           onClick={onClose}

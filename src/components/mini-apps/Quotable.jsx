@@ -7,6 +7,11 @@ import Modal from "@/components/mini-apps/Modal.jsx";
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
+import copy from 'copy-to-clipboard';
+
+import { useCopyToClipboard } from "usehooks-ts";
+import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+
 
 const Quotable = () => {
   const [data, setData] = useState([]);
@@ -17,12 +22,24 @@ const Quotable = () => {
 
   const [favorites, setFavorites] = useState([]);
 
+  const [value, copy] = useCopyToClipboard();
+  const [copied, setCopied] = useState(false); //состояние для копирования цитаты
 
   useEffect(() => {
+    if (localStorage.getItem('favorites') !== null) {
+      setFavorites(JSON.parse(localStorage.getItem('favorites')));
+    }
+
     fetch('http://api.quotable.io/random')
       .then(res => res.json())
       .then(data => setData(data))
   }, []);
+
+  /*useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);*/
+
+
   console.log(data, 'data')
 
 
@@ -33,21 +50,36 @@ const Quotable = () => {
   const handleCopyToLocalStorage = () => {
     localStorage.setItem('copy', JSON.stringify(data))
     console.log('Quotable copied to local storage');
+
+    copy(`${data.content} - ${data.author}`)
+    setCopied(true);
   }
 
   const handleFavoriteToLocalStorage = () => {
-    const updatedFavorites = [...favorites, data];//добавляем текущую цитату
-    setFavorites(updatedFavorites);//обновляем состояние
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-    setOpenModal(true);
-    console.log('Quotable save in favorite to local storage');
+    //есть ли текущая цитата (data) уже в массиве favorites
+    const existingFavorites = favorites.some(item => item._id === data._id)
+    // Если existingFavorites === false, значит такой цитаты ещё нет → выполняется блок if.
+    if (!existingFavorites) {
+      const updatedFavorites = [...favorites, data];//добавляем текущую цитату
+      setFavorites(updatedFavorites);//обновляем состояние(мода-лка покажет новую цитату).
+      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));//Записываем тот же массив в localStorage,
+      // чтобы сохранить данные между перезагрузками.
+      console.log('Quote saved in favorites');
+    } else {
+      console.log('Quote already in favorites');
+    }
   }
+
+  const handleDeleteFavorite = (idToRemove) => {
+   setFavorites(items => items.filter(item => item._id !== idToRemove));
+  }
+
 
   return (
     <section className='py-24 px-4 relative  '>
 
       <div className='container mx-auto max-w-3xl'>
-        <div className='border border-gray-300 rounded-lg shadow-xl'>
+        <div className='border border-gray-300 rounded-lg shadow-2xl shadow-blue-500/50 '>
 
           <div className='flex items-center justify-around'>
             <div className="">
@@ -73,16 +105,20 @@ const Quotable = () => {
               </button>
 
 
-              <Modal open={openModal} onClose={() => {setOpenModal(false)}}>
+              <Modal open={openModal} onClose={() => {
+                setOpenModal(false)
+              }}>
                 {favorites.length === 0 ? (
-                  <p>Пусто</p>
+                  <p className='font-fancy lg:text-2xl md:text-xl '>Empty!</p>
                 ) : (
-                  <ul className="">
+                  <ul className="max-h-96 overflow-y-auto pr-2">
                     {favorites.map((item, index) => (
                       <li key={index} className='mb-4 p-6'>
-                        <p className='font-fancy'>{item.content}</p>
-                        <p className='italic'>{item.author}</p>
-                        <button className='cursor-pointer mt-4 py-2.5 px-6 text-sm bg-red-50 text-red-500 rounded-full font-semibold text-center shadow-xs transition-all duration-500 hover:bg-red-100'>
+                        <p className='text-xl text-foreground/80 font-fancy '>{item.content}</p>
+                        <p className='text-lg text-foreground/80 mt-3 font-fancy italic'>- {item.author}</p>
+                        <button
+                          onClick={() => handleDeleteFavorite(item._id)}
+                          className='cursor-pointer mt-4 py-2.5 px-6 text-sm bg-red-50 text-red-500 rounded-full font-semibold text-center shadow-xs transition-all duration-500 hover:bg-red-100'>
                           Delete
                         </button>
                       </li>
@@ -107,7 +143,7 @@ const Quotable = () => {
                     {data.content || <Skeleton count={2}/>}
                   </p>
 
-                  <p className="text-lg text-foreground/80 mt-8  font-fancy italic ">
+                  <p className="text-lg text-foreground/80 mt-8 font-fancy italic ">
                     - {data.author || <Skeleton count={1}/>}
                   </p>
                 </>
@@ -116,16 +152,38 @@ const Quotable = () => {
           </SkeletonTheme>
 
           <div className='grid items-center justify-center gap-4 mt-8 sm:grid-cols-1 lg:grid-cols-3 p-4'>
+            {/*<button*/}
+            {/*  onClick={handleCopyToLocalStorage}*/}
+            {/*  className='border cursor-pointer border-gray-300 rounded-lg shadow-xl pl-10 pr-10 pt-3 pb-3'>*/}
+            {/*  Copy*/}
+            {/*</button>*/}
+
+
             <button
+              onMouseLeave={() => setCopied(false)}
               onClick={handleCopyToLocalStorage}
-              className='border cursor-pointer border-gray-300 rounded-lg shadow-xl pl-10 pr-10 pt-3 pb-3'>
-              Copy
+              className='border justify-center cursor-pointer border-gray-300 rounded-lg shadow-xl pl-10 pr-10 pt-3 pb-3 flex gap-2 items-center'
+            >
+              {copied ? (
+                <>
+                  <CheckIcon className="h-4 w-4 text-black" />
+                  <span className="text-black">Copied</span>
+                </>
+              ) : (
+                <>
+                  <DocumentDuplicateIcon className="h-4 w-4 text-black" />
+                  <span className="text-black">Copy</span>
+                </>
+              )}
             </button>
+
+
             <button
               onClick={handleFavoriteToLocalStorage}
               className='border cursor-pointer border-gray-300 rounded-lg shadow-xl pl-10 pr-10 pt-3 pb-3'>
               Favorite
             </button>
+
             <button
               onClick={refreshPage}
               className='border justify-center cursor-pointer border-gray-300 rounded-lg shadow-xl pl-10 pr-10 pt-3 pb-3 flex gap-2 items-center'>
