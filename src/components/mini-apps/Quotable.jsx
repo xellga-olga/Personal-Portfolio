@@ -7,10 +7,8 @@ import Modal from "@/components/mini-apps/Modal.jsx";
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-import copy from 'copy-to-clipboard';
-
-import { useCopyToClipboard } from "usehooks-ts";
-import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import {useCopyToClipboard} from "usehooks-ts";
+import {CheckIcon, DocumentDuplicateIcon} from "@heroicons/react/24/outline";
 
 
 const Quotable = () => {
@@ -24,6 +22,8 @@ const Quotable = () => {
 
   const [value, copy] = useCopyToClipboard();
   const [copied, setCopied] = useState(false); //состояние для копирования цитаты
+
+  const [favorited, setFavorited] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem('favorites') !== null) {
@@ -44,6 +44,7 @@ const Quotable = () => {
 
 
   function refreshPage() {
+    setFavorited(false);
     window.location.reload();
   }
 
@@ -65,13 +66,14 @@ const Quotable = () => {
       localStorage.setItem('favorites', JSON.stringify(updatedFavorites));//Записываем тот же массив в localStorage,
       // чтобы сохранить данные между перезагрузками.
       console.log('Quote saved in favorites');
+      setFavorited(true) //показываем "Added"
     } else {
       console.log('Quote already in favorites');
     }
   }
 
   const handleDeleteFavorite = (idToRemove) => {
-   setFavorites(items => items.filter(item => item._id !== idToRemove));
+    setFavorites(items => items.filter(item => item._id !== idToRemove));
   }
 
 
@@ -87,7 +89,8 @@ const Quotable = () => {
                 <button
                   aria-label="Back to Mini Apps"
                 >
-                  <LogOut className="w-5 h-5 cursolr-pointer transform scale-x-[-1]"/>
+                  <LogOut
+                    className="w-5 h-5 cursor-pointer transition-all duration-300 ease-in-out scale-x-[-1] hover:translate-x-1"/>
                 </button>
               </Link>
             </div>
@@ -101,7 +104,8 @@ const Quotable = () => {
               <button
                 onClick={() => setOpenModal(true)}
               >
-                <Heart className="w-5 h-5 cursor-pointer"/>
+                <Heart
+                  className="w-5 h-5 cursor-pointer  transition-transform duration-300 ease-in-out scale-x-[-1] hover:rotate-360"/>
               </button>
 
 
@@ -162,17 +166,17 @@ const Quotable = () => {
             <button
               onMouseLeave={() => setCopied(false)}
               onClick={handleCopyToLocalStorage}
-              className='border justify-center cursor-pointer border-gray-300 rounded-lg shadow-xl pl-10 pr-10 pt-3 pb-3 flex gap-2 items-center'
+              className='border justify-center cursor-pointer cosmic-button mt-4 px-4 py-2 flex gap-2 items-center'
             >
               {copied ? (
                 <>
-                  <CheckIcon className="h-4 w-4 text-black" />
-                  <span className="text-black">Copied</span>
+                  <CheckIcon className="h-4 w-4"/>
+                  <span>Copied</span>
                 </>
               ) : (
                 <>
-                  <DocumentDuplicateIcon className="h-4 w-4 text-black" />
-                  <span className="text-black">Copy</span>
+                  <DocumentDuplicateIcon className="h-4 w-4"/>
+                  <span>Copy</span>
                 </>
               )}
             </button>
@@ -180,13 +184,24 @@ const Quotable = () => {
 
             <button
               onClick={handleFavoriteToLocalStorage}
-              className='border cursor-pointer border-gray-300 rounded-lg shadow-xl pl-10 pr-10 pt-3 pb-3'>
-              Favorite
+              className='border justify-center cursor-pointer cosmic-button mt-4 px-4 py-2 flex gap-2 items-center'
+            >
+              {favorited ? (
+                <>
+                  <CheckIcon className="h-4 w-4"/>
+                  <span>Added</span>
+                </>
+              ) : (
+                <>
+                  <Heart className="h-4 w-4"/>
+                  <span>Favorite</span>
+                </>
+              )}
             </button>
 
             <button
               onClick={refreshPage}
-              className='border justify-center cursor-pointer border-gray-300 rounded-lg shadow-xl pl-10 pr-10 pt-3 pb-3 flex gap-2 items-center'>
+              className='justify-center cursor-pointer cosmic-button mt-4 px-4 py-2 flex gap-2 items-center'>
               Next <ArrowRight size={16}/>
             </button>
           </div>
